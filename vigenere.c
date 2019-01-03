@@ -10,6 +10,55 @@ int main(){
     char newKey[textLength];
 	char encryptedText[textLength];
 	char decryptedText[textLength];
+	int option;
+    
+    printf("Vigenere Cipher\n\nPlease choose from following options""\n1. Encrypt\n2. Decrypt\nYour Option: ");
+	scanf("%d", &option);
+	
+	switch(option) {
+		case 1:
+			printf("Enter text to encrypt: ");
+			scanf("%s", &text);
+			printf("Enter Key: ");
+			scanf("%d", &key);
+			//Create new key equal to size of text
+    		for(i = 0, j = 0; i < textLength; ++i, ++j){
+	        	if(j == keyLength)
+	            	j = 0;
+	        	newKey[i] = key[j];
+    		}
+    		newKey[i] = '\0';
+    		 //encryption
+    		for(i = 0; i < textLength; ++i){
+    			encryptedText[i] = ((text[i] + newKey[i]) % 26) + 'A';
+			}
+       		encryptedText[i] = '\0';
+    		printf("Encrypted Text: %s", encryptedText);
+      		break;
+		case 2:
+			printf("Enter text to decrypt: ");
+			scanf("%s", &encryptedText);
+			printf("Enter Key: ");
+			scanf("%d", &key);
+      		//Create new key equal to size of text
+    		for(i = 0, j = 0; i < textLength; ++i, ++j){
+	        	if(j == keyLength)
+	            	j = 0;
+	        	newKey[i] = key[j];
+    		}
+    		newKey[i] = '\0';
+    		//Decryption
+    		for(i = 0; i < textLength; ++i){
+    			decryptedText[i] = (((encryptedText[i] - newKey[i]) + 26) % 26) + 'A';
+			}
+        	decryptedText[i] = '\0';
+        	printf("\nDecrypted Message: %s", decryptedText);
+     		break;
+	   default:
+   			printf("Wrong Option Selected");
+	}
+    return 0;
+    
     
     //Check if the Text is alphabetical
     for (i=0;i<textLength;i++){
@@ -25,35 +74,20 @@ int main(){
 			return 1;
 		}
 	}
- 
-    //Create new key equal to size of text
-    for(i = 0, j = 0; i < textLength; ++i, ++j){
-        if(j == keyLength)
-            j = 0;
- 
-        newKey[i] = key[j];
-    }
- 
-    newKey[i] = '\0';
- 
-    //encryption
-    for(i = 0; i < textLength; ++i)
-        encryptedText[i] = ((text[i] + newKey[i]) % 26) + 'A';
-    encryptedText[i] = '\0';
- 
+	
+    
+   
     //decryption
-    for(i = 0; i < textLength; ++i)
-        decryptedText[i] = (((encryptedText[i] - newKey[i]) + 26) % 26) + 'A';
- 
-    decryptedText[i] = '\0';
+    
  
     printf("Original Message: %s", text);
     printf("\nKey: %s", key);
     printf("\nNew Generated Key: %s", newKey);
     printf("\nEncrypted Message: %s", encryptedText);
-    printf("\nDecrypted Message: %s", decryptedText);
+    
     
  	return 0;
 }
+
 
 
